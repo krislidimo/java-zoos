@@ -1,5 +1,6 @@
 package com.lambdaschool.javazoos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.mapping.Join;
 
 import javax.persistence.*;
@@ -16,12 +17,14 @@ public class Zoo {
     private String zooname;
 
     @OneToMany(mappedBy = "zoo")
+    @JsonIgnoreProperties("zoo")
     private List<Telephone> telephones = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "zooanimals",
+    @JoinTable(name = "zooanimal",
         joinColumns = {@JoinColumn(name = "zooid")},
         inverseJoinColumns = {@JoinColumn(name = "animalid")})
+    @JsonIgnoreProperties("zoos")
     private List<Animal> animals = new ArrayList<>();
 
     public Zoo(String zooname) {

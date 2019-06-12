@@ -1,5 +1,9 @@
 package com.lambdaschool.javazoos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.lambdaschool.javazoos.view.View;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +13,14 @@ import java.util.List;
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.AnimalsOnly.class)
     private Long animalid;
 
+    @JsonView(View.AnimalsOnly.class)
     private String animaltype;
 
     @ManyToMany(mappedBy = "animals")
+    @JsonIgnoreProperties("animals")
     private List<Zoo> zoos= new ArrayList<>();
 
     public Animal(String animaltype) {

@@ -1,5 +1,7 @@
 package com.lambdaschool.javazoos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,13 +9,14 @@ import javax.persistence.*;
 public class Telephone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long telephoneid;
+    private long phoneid;
 
     private String phonetype;
     private String phonenumber;
 
     @ManyToOne
     @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties("telephones>")
     private Zoo zoo;
 
     public Telephone(String phonetype, String phonenumber, Zoo zoo) {
@@ -26,11 +29,11 @@ public class Telephone {
     }
 
     public long getTelephoneid() {
-        return telephoneid;
+        return phoneid;
     }
 
     public void setTelephoneid(long telephoneid) {
-        this.telephoneid = telephoneid;
+        this.phoneid = telephoneid;
     }
 
     public String getPhonetype() {
